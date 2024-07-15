@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Image_Swiper/static/css/main.0bf969b8.css",
+    "main.js": "/Image_Swiper/static/js/main.7e74ddbe.js",
+    "static/js/453.ed3810f9.chunk.js": "/Image_Swiper/static/js/453.ed3810f9.chunk.js",
+    "index.html": "/Image_Swiper/index.html",
+    "main.0bf969b8.css.map": "/Image_Swiper/static/css/main.0bf969b8.css.map",
+    "main.7e74ddbe.js.map": "/Image_Swiper/static/js/main.7e74ddbe.js.map",
+    "453.ed3810f9.chunk.js.map": "/Image_Swiper/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0bf969b8.css",
+    "static/js/main.7e74ddbe.js"
+  ]
+}

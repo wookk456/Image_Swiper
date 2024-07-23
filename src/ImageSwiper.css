@@ -11,7 +11,7 @@
   align-items: center;
   opacity: 0.5;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  height: 50vh; 
+  height: 50vh; /* 반응형 높이 */
 }
 
 .swiper-slide-custom img {
@@ -45,7 +45,7 @@
 .scrollbar {
   position: absolute;
   height: 100%;
-  width: calc(100% / 10); 
+  width: calc(100% / 10); /* Adjust based on the number of slides */
   background-color: #007aff;
   transition: left 0.3s ease;
 }
@@ -62,7 +62,7 @@
 .description-title {
   position: absolute;
   text-align: left;
-  font-size: 1.5vw;
+  font-size: 1.5vw; /* 반응형 폰트 크기 */
   top: 30%;
   left: 20%;
   border-bottom: 0.15vw solid #007aff;
@@ -106,5 +106,13 @@
 }
 
 .desc.hide {
-  animation: hide 0.1s forwards;
+  animation: hide 0.3s forwards;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2em;
 }

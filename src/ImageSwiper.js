@@ -40,6 +40,7 @@ const ImageSwiper = () => {
   const [description, setDescription] = useState({});
   const [animate, setAnimate] = useState(false);
   const [hideText, setHideText] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const swiperRef = useRef(null);
 
   const updateBorderStyle = () => {
@@ -49,28 +50,45 @@ const ImageSwiper = () => {
       if (img) {
         const rect = img.getBoundingClientRect();
         setBorderStyle({
-          width: `${1.8*rect.width}px`,
-          height: `${1.8* rect.height}px`,
+          width: `${1.8 * rect.width}px`,
+          height: `${1.8 * rect.height}px`,
           transition: 'width 0.3s ease, height 0.3s ease',
-          transform: 'translate(-50%, -50%)'
+          transform: 'translate(-50%, -50%)',
         });
         setDescriptionStyle({
           left: `calc(30vw - ${rect.width * 0.9}px)`,
-          transition: 'left 0.3s ease'
+          transition: 'left 0.3s ease',
         });
         setDescription({
           left: `calc(30vw - ${rect.width * 0.9}px)`,
-          transition: 'left 0.3s ease'
-        })
+          transition: 'left 0.3s ease',
+        });
       }
     }
   };
 
   useEffect(() => {
-    updateBorderStyle();
+    const loadImage = (url) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = resolve;
+      });
+    };
+
+    Promise.all(images.map((src) => loadImage(src))).then(() => {
+      setImagesLoaded(true);
+      updateBorderStyle(); // 이미지가 모두 로드된 후에 updateBorderStyle 호출
+    });
+  }, []);
+
+  useEffect(() => {
+    if (imagesLoaded) {
+      updateBorderStyle();
+    }
     window.addEventListener('resize', updateBorderStyle);
     return () => window.removeEventListener('resize', updateBorderStyle);
-  }, [activeIndex]);
+  }, [activeIndex, imagesLoaded]);
 
   const handleSlideChange = (swiper) => {
     const totalSlides = swiper.slides.length;
@@ -79,12 +97,16 @@ const ImageSwiper = () => {
     setActiveIndex(currentIndex);
     setScrollbarLeft(newLeft);
     setAnimate(false);
-    setHideText(true);
+    setHideText(true); // Hide text immediately
     setTimeout(() => {
       setHideText(false);
       setAnimate(true);
-    }, 300);
+    }, 300); // Show text after 0.3s
   };
+
+  if (!imagesLoaded) {
+    return <div className="loading-spinner">Loading...</div>;
+  }
 
   return (
     <div className="swiper-wrapper">
